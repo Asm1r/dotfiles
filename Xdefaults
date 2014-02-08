@@ -1,1 +1,15 @@
-/home/akill/.Xdefaults
+
+! Perl URxvt extensions {{{
+URxvt.perl-ext:		default,urxvi
+
+URxvt.keysym.S-Escape:	perl:urxvi
+!}}}
+
+! Some options {{{
+URxvt*scrollBar:	False
+URxvt*borderLess: 	True 
+URxvt.shading: 		130
+URxvt*scrollstyle:	xterm
+!}}}
+
+       
