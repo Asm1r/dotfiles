@@ -1,0 +1,10 @@
+out_to_console 	yes
+background 	no
+update_interval 2
+total_run_times 0
+use_spacer 	none
+
+TEXT
+:: ${downspeed wlp2s0} ${upspeed wlp2s0}\
+:: ${wireless_link_qual_perc wlp2s0}\
+:: ${cpu}% :: ${acpitemp}c :: $mem :: ${time %a %b %d %H:%M%P}
