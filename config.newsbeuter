@@ -1,0 +1,31 @@
+#{{{ Misc config
+browser	"dwbremote :tabopen %u"
+#}}}
+
+#{{{ Keybinds
+bind-key	j	down
+bind-key	k	up
+bind-key	d	quit
+#}}}
+
+#{{{ Macros
+macro i set browser "feh %u"; open ; set browser "dwb %u"
+#}}}
+
+#{{{ Colors
+# Generic Background
+# First value is not used.
+# color background magenta color237
+#
+# #Text/background when reading an article
+# color article color188 color237
+#
+# #Color the listview items
+# color listnormal color188 color237
+#
+# #Selected listveiew item.
+# color listfocus color108 color236
+#
+# # info
+# color info color144 color234
+#}}}

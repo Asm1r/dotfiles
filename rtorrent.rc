@@ -1,0 +1,4 @@
+color_inactive_fg = 4
+color_dead_fg = 1
+color_active_fg = 3
+color_finished_fg = 2
