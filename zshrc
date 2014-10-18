@@ -1,10 +1,11 @@
 # Begining of the file
 # Main conf dir is /etc/zsh/zshrc
 # Written by Asmir; asmir [at] archlinux [dot] us
+
 ### Includes ###
 #{{{ 
 # Syntax highlight plugin
-source /usr/share/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # vi cursor mode status
 source ~/.zsh/vi_cursor_mode.zsh
@@ -17,26 +18,26 @@ source ~/.zsh/vi_cursor_mode.zsh
 
 ### Aliases ###
 #{{{
+alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
+alias info="info --vi-keys"
+alias l='ls -l'
+alias ls='ls -b -CF --color=auto'
+alias mpa="mpv --no-video"
+alias nb="newsbeuter -q"
+alias p="proxychains"	
+alias pd='popd'
+alias w2l="iconv -f windows-1252 -t utf-8 $1 > $2"
 for c in cp rm chmod chown rename; do 
     alias $c="$c -v" 
 done
-alias axel='axel -a'
-alias ls='ls -b -CF --color=auto'
-alias w2l="iconv -f windows-1252 -t utf-8 $1 > $2"
-alias info="info --vi-keys"
-alias p="proxychains"	
-alias wgcc="i486-mingw32-gcc -mwindows"
-alias wg++="i486-mingw32-g++ -mwindows"
-alias windres="i486-mingw32-windres"
-alias nb="newsbeuter -q"
+
 # Sufix aliases
-alias -s {conf,txt,rc,c,h}=$EDITOR
-alias -s {ba,com,url,html,net,org,to}="$BROWSER&"
-alias -s {mp3,mp4,avi,mkv,webm,ogg,rmvb,3gp,flv}=$PLAYER
-alias -s {jpg,jpeg,png,tif,gif,svg}=$VIEWER
+alias -s pdf="dn zathura"
 alias -s tar="tar -xvf"
-alias -s pdf=zathura
-alias -s exe=wine
+alias -s {ba,com,url,html,net,org,to}="dn $BROWSER"
+alias -s {conf,txt,rc,c,h}=$EDITOR
+alias -s {jpg,jpeg,png,tif,gif,svg}="dn $VIEWER"
+alias -s {mp3,mp4,avi,mkv,webm,ogg,ogv,rmvb,3gp,flv}="dn $PLAYER"
 #}}}
 
 ### Bindkeys ###
@@ -53,6 +54,8 @@ bindkey '^xP'   history-beginning-search-forward-end
 bindkey "\e[5~" history-beginning-search-backward-end # PageUp
 #k# search history forward for entry beginning with typed text
 bindkey "\e[6~" history-beginning-search-forward-end  # PageDown
+# also do history expansion on space
+bindkey ' ' magic-space 		
 #}}}
 
 ### Functions ###
@@ -67,9 +70,17 @@ function chpwd() {
 ##Replace " " with "_"
 function s2l() { 
 for file in *; do
-  mv $file ${file:gs/\ /_/}
+  \mv $file ${file:gs/\ /_/}
 done
 }
+
+function dn() {
+	dtach -n "/tmp/.$1.$$" $@
+}
+
+function d() {
+	dtach -A "/tmp/.$1.$$" $@
+}	
 
 is42(){
     [[ $ZSH_VERSION == 4.<2->* || $ZSH_VERSION == <5->* ]] && return 0
@@ -80,44 +91,47 @@ is42(){
 ### Misc options ###
 #{{{
 
-eval `dircolors ~/.zsh/dircolors.256dark`
+eval `dircolors /etc/dir_colors`
 
 REPORTTIME=5 				# report about cpu-/system-/user-time of
     					# command  if running longer than 5 seconds
 autoload -U compinit && compinit	# completion
 autoload -U colors && colors		# colors are good
 autoload -U zmv				# cool mv function
-setopt nobeep                  		# I hate beeps
+setopt alwaystoend             		# when complete from middle, move cursor
 setopt auto_cd		       		# change dirs without cd
 setopt autopushd               		# automatically append dirs to the push/pop list
-setopt pushdignoredups         		# and don't duplicate them
-setopt nocheckjobs             		# don't warn me about bg processes when exiting
-setopt nohup                   		# and don't kill them, either
+setopt c_bases				# 0xFF
+setopt completealiases			# completion with aliases
+setopt completeinword          		# not just at the end
+setopt correct		       		# spelling correction
+setopt extendedglob            		# weird & wacky pattern matching - yay zsh!
+setopt hash_list_all			# rehash on completion
+setopt histignorespace			# history ignores commands following whitespace
+setopt inc_append_history		# append history to $HISTFILE
 setopt listpacked              		# compact completion lists
 setopt listtypes               		# show types in completion
-setopt extendedglob            		# weird & wacky pattern matching - yay zsh!
-setopt completeinword          		# not just at the end
-setopt alwaystoend             		# when complete from middle, move cursor
-setopt nopromptcr              		# don't add \r which overwrites cmd output with no \n
-setopt printexitvalue          		# alert me if something's failed
-setopt correct		       		# spelling correction
-setopt inc_append_history		# append history to $HISTFILE
-setopt share_history			# share history betwen sessions
-setopt completealiases			# completion with aliases
-setopt histignorespace			# history ignores commands following whitespace
-setopt c_bases				# 0xFF
 setopt multios				# Allow Multiple pipes
+setopt nobeep                  		# I hate beeps
+setopt nocheckjobs             		# don't warn me about bg processes when exiting
+setopt nohup                   		# and don't kill them, either
+setopt nopromptcr              		# don't add \r which overwrites cmd output with no \n
 setopt notify				# Notify when jobs finish
-bindkey ' ' magic-space 		# also do history expansion on space
+setopt printexitvalue          		# alert me if something's failed
+setopt pushdignoredups         		# and don't duplicate them
+setopt share_history			# share history betwen sessions
 #}}}
 
-### Completion system ###
-#{{{
+### Completion System ###
+# completion system# {{{
 # called later (via is4 && grmlcomp)
 # note: use 'zstyle' for getting current settings
 #         press ^xh (control-x h) for getting tags in context; ^x? (control-x ?) to run complete_debug with trace output
 grmlcomp() {
     # TODO: This could use some additional information
+
+    # Make sure the completion system is initialised
+    (( ${+_comps} )) || return 1
 
     # allow one error for every three characters typed in approximate completer
     zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
@@ -203,6 +217,15 @@ grmlcomp() {
     zstyle ':completion:*:manuals.*'  insert-sections   true
     zstyle ':completion:*:man:*'      menu yes select
 
+    # Search path for sudo completion
+    zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                               /usr/local/bin  \
+                                               /usr/sbin       \
+                                               /usr/bin        \
+                                               /sbin           \
+                                               /bin            \
+                                               /usr/X11R6/bin
+
     # provide .. as a completion
     zstyle ':completion:*' special-dirs ..
 
@@ -240,12 +263,26 @@ grmlcomp() {
     [[ -d $ZSHDIR/cache ]] && zstyle ':completion:*' use-cache yes && \
                             zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
 
+    # host completion
+    if is42 ; then
+        [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+    else
+        _ssh_hosts=()
+        _etc_hosts=()
+    fi
+    hosts=(
+        $(hostname)
+        "$_ssh_hosts[@]"
+        "$_etc_hosts[@]"
+        localhost
+    )
+    zstyle ':completion:*:hosts' hosts $hosts
     # TODO: so, why is this here?
     #  zstyle '*' hosts $hosts
 
     # use generic completion system for programs not yet defined; (_gnu_generic works
     # with commands that provide a --help option with "standard" gnu-like output.)
-    for compcom in cp deborphan df feh fetchipac head hnb ipacsum mv \
+    for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
                    pal stow tail uname ; do
         [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
     done; unset compcom
