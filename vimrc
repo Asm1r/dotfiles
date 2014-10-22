@@ -5,26 +5,26 @@ filetype off
 
 "" Call vundle to install/update/remove plugins
 call vundle#rc()
- Plugin 'MarcWeber/vim-addon-mw-utils' 		"Used by snipmate
- Plugin 'tomtom/tlib_vim'			"Used by snipmate
- Plugin 'honza/vim-snippets'			"Snippets for snipmate
- Plugin 'garbas/vim-snipmate'			"Insers preconfigured snips
- Plugin 'terryma/vim-multiple-cursors'		"Sublimes multi-cursor
- Plugin 'scrooloose/syntastic'			"Spell check
- Plugin 'tomtom/tcomment_vim'			"Code commenting made easier
- Plugin 'majutsushi/tagbar'			"Code browsing using ctags
- Plugin 'scrooloose/nerdtree'			"Tree explorer for vim
- Plugin 'nathanaelkane/vim-indent-guides'	"Make indents visible
  Plugin 'avr.vim'				"Syntax higlight for AVR assem
- Plugin 'DrawIt'				"ASCII art
  Plugin 'beyondmarc/opengl.vim'			"OpenGL syntax higlight
- Plugin 'ScrollColors'				"Vim color chooser 
- Plugin 'chrisbra/Colorizer'			"Show the color you write
- Plugin 'kien/rainbow_parentheses.vim'		"Color your parentheses
- Plugin 'mhinz/vim-startify'			"Nicer vim start
- "Plugin 'eagletmt/ghcmod-vim'			"Haskell mod
- "Plugin 'Shougo/vimproc'			"Needed for Haskell mod
  "Plugin 'cg433n/better-c'			"Better C syntax highlight
+ Plugin 'chrisbra/Colorizer'			"Show the color you write
+ Plugin 'DrawIt'				"ASCII art
+ "Plugin 'eagletmt/ghcmod-vim'			"Haskell mod
+ Plugin 'garbas/vim-snipmate'			"Insers preconfigured snips
+ Plugin 'honza/vim-snippets'			"Snippets for snipmate
+ Plugin 'kien/rainbow_parentheses.vim'		"Color your parentheses
+ Plugin 'majutsushi/tagbar'			"Code browsing using ctags
+ Plugin 'MarcWeber/vim-addon-mw-utils' 		"Used by snipmate
+ "Plugin 'mhinz/vim-startify'			"Nicer vim start
+ Plugin 'nathanaelkane/vim-indent-guides'	"Make indents visible
+ Plugin 'ScrollColors'				"Vim color chooser 
+ "Plugin 'scrooloose/nerdtree'			"Tree explorer for vim (obsol.)
+ Plugin 'scrooloose/syntastic'			"Spell check
+ "Plugin 'Shougo/vimproc'			"Needed for Haskell mod
+ Plugin 'terryma/vim-multiple-cursors'		"Sublimes multi-cursor
+ Plugin 'tomtom/tcomment_vim'			"Code commenting made easier
+ Plugin 'tomtom/tlib_vim'			"Used by snipmate
 filetype plugin indent on			"End vundle call, use plugins
 
 "" Plugin settings
@@ -61,20 +61,21 @@ filetype plugin indent on			"End vundle call, use plugins
 syntax on
 set number
 set ruler
-set shiftwidth=4		"It's like a standard
+set shiftwidth=8		"It's like a standard
 set undolevels=127		"Remember this much undos
 set ttyscroll=3			"Scroll faster
 set incsearch			"Search as you type
 set hlsearch			"Higlight search
 let loaded_matchparen=1	 	"Don't show matching parentheses
+let g:netrw_liststyle=3		"Vim Explorer NTree style
 
 "" Appereance 
 colorscheme dante
 
 "" Keymap
 nmap <F8> :TagbarToggle<CR>	"Plugin shortcut
-nmap <F10> :NERDTreeToggle<CR>	"Plugin shortcut
-nnoremap <C-J> <C-W><C-J>	"Easier split motion
-nnoremap <C-K> <C-W><C-K>	" 
-nnoremap <C-L> <C-W><C-L>	"
-nnoremap <C-H> <C-W><C-H>	"
+nmap <F10> :Explore<CR>		"File explorer (eplaces NTree)
+nnoremap <C-J> <C-W><C-J>	"|Easier split motion
+nnoremap <C-K> <C-W><C-K>	"| 
+nnoremap <C-L> <C-W><C-L>	"|
+nnoremap <C-H> <C-W><C-H>	"|
