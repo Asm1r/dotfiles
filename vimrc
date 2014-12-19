@@ -75,7 +75,8 @@ colorscheme dante
 "" Keymap
 nmap <F8> :TagbarToggle<CR>	"Plugin shortcut
 nmap <F10> :Explore<CR>		"File explorer (eplaces NTree)
-nnoremap <C-J> <C-W><C-J>	"|Easier split motion
-nnoremap <C-K> <C-W><C-K>	"| 
-nnoremap <C-L> <C-W><C-L>	"|
-nnoremap <C-H> <C-W><C-H>	"|
+nmap Q :nohl<cr>		"Clear higlights and disable Ex-mode
+nnoremap <C-J> <C-W><C-J>	"Easier split motion
+nnoremap <C-K> <C-W><C-K>	" 
+nnoremap <C-L> <C-W><C-L>	"
+nnoremap <C-H> <C-W><C-H>	"
