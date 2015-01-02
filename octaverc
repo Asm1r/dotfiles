@@ -1,0 +1,9 @@
+%%%
+
+%% I need this often %%
+pkg load signal
+
+%% Use gnuplot by default %%
+graphics_toolkit("gnuplot");
+
+% vim: set ft=matlab:
