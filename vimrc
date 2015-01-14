@@ -3,31 +3,31 @@
 ""---------------------------------------------+
 
 "" Call vundle to install/update/remove plugins
-set nocompatible				"This is needed for vundle
+set nocompatible				"Be modern
 filetype off					"
-call vundle#rc()
- Plugin 'avr.vim'				"Syntax higlight for AVR assem
- Plugin 'beyondmarc/opengl.vim'			"OpenGL syntax higlight
- "Plugin 'cg433n/better-c'			"Better C syntax highlight 
- Plugin 'chrisbra/Colorizer'			"Show the color you write
- Plugin 'DrawIt'				"ASCII art
- Plugin 'eagletmt/ghcmod-vim'			"Haskell mod
- Plugin 'haskell.vim'				"Fix haskell syntax hl.
- Plugin 'indenthaskell.vim'			"Fix haskell indenting
- Plugin 'garbas/vim-snipmate'			"Insers preconfigured snips
- Plugin 'honza/vim-snippets'			"Snippets for snipmate
- Plugin 'kien/rainbow_parentheses.vim'		"Color your parentheses
- Plugin 'majutsushi/tagbar'			"Code browsing using ctags
- Plugin 'MarcWeber/vim-addon-mw-utils' 		"Used by snipmate
- "Plugin 'mhinz/vim-startify'			"Nicer vim start (don't need)
- Plugin 'nathanaelkane/vim-indent-guides'	"Make indents visible
- Plugin 'ScrollColors'				"Vim color chooser 
- "Plugin 'scrooloose/nerdtree'			"Tree explorer for vim (obsol.)
- Plugin 'scrooloose/syntastic'			"Spell check
- Plugin 'Shougo/vimproc'			"Needed for Haskell mod
- Plugin 'terryma/vim-multiple-cursors'		"Sublimes multi-cursor
- Plugin 'tomtom/tcomment_vim'			"Code commenting made easier
- Plugin 'tomtom/tlib_vim'			"Used by snipmate
+
+call plug#begin('~/.vim/bundle')
+ Plug 'avr.vim', {'for': 'c'}			"Syntax higlight for AVR assem
+ Plug 'beyondmarc/opengl.vim', {'for': 'c'}	"OpenGL syntax higligh
+ Plug 'cg433n/better-c', {'for': 'c'}		"Better C syntax highlight 
+ Plug 'chrisbra/Colorizer'			"Show the color you write
+ Plug 'DrawIt'					"ASCII art
+ Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}	"Haskell mod
+ Plug 'haskell.vim', {'for': 'haskell'}		"Fix haskell syntax hl.
+ Plug 'indenthaskell.vim', {'for': 'haskell'}	"Fix haskell indenting
+ Plug 'garbas/vim-snipmate'			"Insers preconfigured snips
+ Plug 'honza/vim-snippets'			"Snippets for snipmate
+ Plug 'kien/rainbow_parentheses.vim',		"Color your parentheses
+ Plug 'majutsushi/tagbar', {'for': 'c'}		"Code browsing using ctags
+ Plug 'MarcWeber/vim-addon-mw-utils' 		"Used by snipmate
+ Plug 'nathanaelkane/vim-indent-guides'		"Make indents visible
+ Plug 'ScrollColors'				"Vim color chooser 
+ Plug 'scrooloose/syntastic'			"Spell check
+ Plug 'Shougo/vimproc', {'on': 'haskell'}	"Needed for Haskell mod
+ Plug 'terryma/vim-multiple-cursors'		"Sublimes multi-cursor
+ Plug 'tomtom/tcomment_vim'			"Code commenting made easier
+ Plug 'tomtom/tlib_vim'				"Used by snipmate
+call plug#end()
 
 filetype plugin indent on			"End vundle call, use plugins
 
@@ -70,9 +70,11 @@ set undolevels=127		"Remember this much undos
 set ttyscroll=3			"Scroll faster
 set incsearch			"Search as you type
 set hlsearch			"Higlight search
-set digraph			"For deutsch
+"set digraph			"For deutsch
 set showcmd			"Show 'incomplete' commands
 set title			"Show what you edit on term titlebar
+set lazyredraw			"Don't update display while executing macros
+set wildmenu			"Better cmd line completion
 let loaded_matchparen=1	 	"Don't show matching parentheses
 let g:netrw_liststyle=3		"Vim Explorer NTree style
 
