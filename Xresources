@@ -1,45 +1,85 @@
-(black)
-urxvt.color0:	#494848
-(bright black)
-urxvt.color8: 	#706E6E
+! !(black)
+! urxvt.color0:	#000000
+! !(bright black)
+! urxvt.color8: 	#706E6E
+!
+! !(red)
+! urxvt.color1:	#EE4F7C
+! !(bright red)
+! urxvt.color9: 	#D3849A
+!
+! !(green)
+! urxvt.color2: 	#6CAD66
+! !(bright green)
+! urxvt.color10: 	#66AD72
+!
+! !(yellow)
+! urxvt.color3: 	#BEEE3B
+! !(bright yellow)
+! urxvt.color11:  #A0EE3B
+!
+! !(blue)
+! urxvt.color4:	#006465
+! !(bright blue)
+! urxvt.color12: 	#005C65
+!
+! !(magenta)
+! urxvt.color5:   #493FD2
+! !(bright magenta)
+! urxvt.color13:  #3F5AD2
+!
+! !(cyan)
+! urxvt.color6:	#0F928C
+! !(bright cyan)
+! urxvt.color14: 	#64A5A2
+!
+! !(white)
+! urxvt.color7: 	#C0C0C0
+! !(bright white)
+! urxvt.color15: 	#E9E9E9
 
-(red)
-urxvt.color1:	#EE4F7C
-(bright red)
-urxvt.color9: 	#D3849A
-
-(green)
-urxvt.color2: 	#6CAD66
-(bright green)
-urxvt.color10: 	#66AD72
-
-(yellow)
-urxvt.color3: 	#BEEE3B
-(bright yellow)
-urxvt.color11:  #A0EE3B
-
-(blue)
-urxvt.color4:	#006465
-(bright blue)
-urxvt.color12: 	#005C65
-
-(magenta)
-urxvt.color5:   #493FD2
-(bright magenta)
-urxvt.color13:  #3F5AD2
-
-(cyan)
-urxvt.color6:	#0F928C
-(bright cyan)
-urxvt.color14: 	#64A5A2
-
-(white)
-urxvt.color7: 	#C0C0C0
-(bright white)
-urxvt.color15: 	#E9E9E9
-
-urxvt.foreground:		 #0F928C
-urxvt.background:		 #000000
+! urxvt.foreground:		 #FF6600
+! urxvt.background:		 #000000
+!
+*background: #002b36
+*foreground: #657b83
+!!*fading: 40
+*fadeColor: #002b36
+*cursorColor: #93a1a1
+*pointerColorBackground: #586e75
+*pointerColorForeground: #93a1a1
+ 
+!! black dark/light
+*color0: #073642
+*color8: #002b36
+ 
+!! red dark/light
+*color1: #dc322f
+*color9: #cb4b16
+ 
+!! green dark/light
+*color2: #859900
+*color10: #586e75
+ 
+!! yellow dark/light
+*color3: #b58900
+*color11: #657b83
+ 
+!! blue dark/light
+*color4: #268bd2
+*color12: #839496
+ 
+!! magenta dark/light
+*color5: #d33682
+*color13: #6c71c4
+ 
+!! cyan dark/light
+*color6: #2aa198
+*color14: #93a1a1
+ 
+!! white dark/light
+*color7: #eee8d5
+*color15: #fdf6e3
 
 ! Xft settings {{{ 
 Xft.antialias:  true
