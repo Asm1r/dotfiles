@@ -85,7 +85,7 @@ autocmd BufRead /tmp/mutt-* set tw=72	"Mail file
 
 
 "" Appereance 
-colorscheme dante
+colorscheme solarized
 
 "" Keymap
 nnoremap <F8> :TagbarToggle<CR>	"Plugin shortcut
