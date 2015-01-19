@@ -5,7 +5,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-"" Call vundle to install/update/remove plugins
+"" Call vim-plug to install/update/remove plugins
 set nocompatible				"Be modern
 filetype off					"
 
@@ -26,7 +26,7 @@ call plug#begin('~/.nvim/plug')
  Plug 'sheerun/vim-polyglot'			"All in one ident/syntax
 call plug#end()
 
-filetype plugin indent on			"End vundle call, use plugins
+filetype plugin indent on			"End vim-plug call, use plugins
 
 "" Plugin settings
  "majutsushi/tagbar
