@@ -1,0 +1,25 @@
+# Write your default config options here!
+
+# default output, vdpau seems buggy on nouveau
+# mimic mpchc
+vo=opengl-hq:swapinterval=1:lscale=ewa_lanczos3:cscale=ewa_lanczos2:dither-depth=8:temporal-dither:3dlut-size=128x256x64:scaler-resizes-only:fbo-format=rgba16:sigmoid-upscaling:sigmoid-slope=6.5:sigmoid-center=0.75
+vf=vdpaupp
+hwdec=vdpau
+geometry=50%:50%
+ytdl=yes
+
+# Audio
+ao=alsa
+audio-channels=downmix
+af=drc,scaletempo
+alang=jpn,jp,en,eng
+gapless-audio
+softvol-max=300
+
+#Subtitles
+slang=en,eng
+demuxer-mkv-subtitle-preroll
+ass-force-style=Kerning=yes
+
+# Cache
+cache=327680
