@@ -8,13 +8,15 @@
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # vi cursor mode status
-source ~/.zsh/vi_cursor_mode.zsh
+#source ~/.zsh/vi_cursor_mode.zsh
 #}}}
 
 ### Startup ###
 #{{{
 #fortune 
+print -Pn "\e]2;%~\a"
 #}}}
+#
 
 ### Aliases ###
 #{{{
@@ -24,8 +26,8 @@ alias l='ls -l'
 alias ls='ls -b -CF --color=auto'
 alias mpa="mpv --no-video"
 alias nb="newsbeuter -q"
-alias p="proxychains"	
 alias pd='popd'
+alias p="proxychains"	
 alias w2l="iconv -f windows-1252 -t utf-8 $1 > $2"
 for c in cp rm chmod chown rename; do 
     alias $c="$c -v" 
@@ -33,6 +35,7 @@ done
 
 # Sufix aliases
 alias -s pdf="dn zathura"
+alias -s doc="dn abiword"
 alias -s tar="tar -xvf"
 alias -s {ba,com,url,html,net,org,to}="dn $BROWSER"
 alias -s {conf,txt,rc,c,h}=$EDITOR
@@ -64,7 +67,7 @@ bindkey ' ' magic-space
 ##Executes by every cd
 function chpwd() {
 	ls
-	echo -ne "\033]0;$USER\007"
+	print -Pn "\e]2;%~\a"
 }
 
 ##Replace " " with "_"
@@ -296,7 +299,8 @@ grmlcomp
 ### Prompt ###
 #{{{
 #prompt by hound
-PS1=$'%{\e[1;38m%}[%{\e[0m%} %{\e[1;35m%}%~%{\e[0m%}%{\e[1;38m%}]%{\e[0m%}%{\e[0;34m%}$%{\e[0m%} '
+PS1=$'%{\e[1;34m%}%n %{\e[0m%}at %{\e[0;33m%}%M %{\e[0m%}in %{\e[1;32m%}%~ 
+%{\e[1;34m%}\\ %{\e[0m%}'
 #}}}
 
 # vim:sw=4:ft=zsh:fdm=marker
