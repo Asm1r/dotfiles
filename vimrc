@@ -24,9 +24,11 @@ call plug#begin('~/.vim/plug')
  Plug 'tomtom/tlib_vim'				"Used by snipmate
  Plug 'flazz/vim-colorschemes'			"Self explained
  Plug 'sheerun/vim-polyglot'			"All in one ident/syntax
+ Plug 'Shougo/unite.vim'			"Make Vim an IDE
+ Plug 'Shougo/vimproc.vim'			"Needed for Unite (manual inst)
 call plug#end()
-
 filetype plugin indent on			"End vim-plug call, use plugins
+
 
 "" Plugin settings
  "majutsushi/tagbar
@@ -34,29 +36,29 @@ filetype plugin indent on			"End vim-plug call, use plugins
  "scrooloose/syntatic
   let g:syntastic_c_include_dirs = [ '/usr/avr/include', '/usr/include' ]
  "kien/rainbow_parentheses
+  let g:rbpt_colorpairs = [
+	\ ['darkyellow',  'RoyalBlue3'],
+	\ ['darkgreen',   'SeaGreen3'],
+	\ ['darkcyan',    'DarkOrchid3'],
+	\ ['Darkblue',    'firebrick3'],
+	\ ['DarkMagenta', 'RoyalBlue3'],
+	\ ['darkred',     'SeaGreen3'],
+	\ ['darkyellow',  'DarkOrchid3'],
+	\ ['darkgreen',   'firebrick3'],
+	\ ['darkcyan',    'RoyalBlue3'],
+	\ ['Darkblue',    'SeaGreen3'],
+	\ ['DarkMagenta', 'DarkOrchid3'],
+	\ ['Darkblue',    'firebrick3'],
+	\ ['darkcyan',    'SeaGreen3'],
+	\ ['darkgreen',   'RoyalBlue3'],
+	\ ['darkyellow',  'DarkOrchid3'],
+	\ ['darkred',     'firebrick3'],
+	\ ]
+  let g:rbpt_max = 16
   autocmd VimEnter * RainbowParenthesesActivate
   autocmd VimEnter * RainbowParenthesesLoadRound
   autocmd VimEnter * RainbowParenthesesLoadSquare
   autocmd VimEnter * RainbowParenthesesLoadBraces
-  let g:rbpt_colorpairs = [
-      \ ['brown',       'RoyalBlue3'],
-      \ ['Darkblue',    'SeaGreen3'],
-      \ ['darkgray',    'DarkOrchid3'],
-      \ ['darkgreen',   'firebrick3'],
-      \ ['darkcyan',    'RoyalBlue3'],
-      \ ['darkred',     'SeaGreen3'],
-      \ ['darkmagenta', 'DarkOrchid3'],
-      \ ['brown',       'firebrick3'],
-      \ ['gray',        'RoyalBlue3'],
-      \ ['black',       'SeaGreen3'],
-      \ ['darkmagenta', 'DarkOrchid3'],
-      \ ['Darkblue',    'firebrick3'],
-      \ ['darkgreen',   'RoyalBlue3'],
-      \ ['darkcyan',    'SeaGreen3'],
-      \ ['darkred',     'DarkOrchid3'],
-      \ ['red',         'red'],
-      \ ]
-  let g:rbpt_max = 16
  "vim-polygot
   let g:LatexBox_loaded_matchparen = 1	"Disable matchparen on latex
 
@@ -83,9 +85,16 @@ autocmd InsertLeave * set nopaste	"Turn off paste mode on leaving insret
 autocmd BufWritePost .vimrc so ~/.vimrc	"Auto reload vimrc
 autocmd BufRead /tmp/mutt-* set tw=72	"Mail file
 
-
 "" Appereance 
+if (exists('+colorcolumn'))		"Highlight 80th column
+	set colorcolumn=80
+        highlight ColorColumn ctermbg=9
+endif
+
+set background=dark
 colorscheme solarized
+
+
 
 "" Keymap
 nnoremap <F8> :TagbarToggle<CR>	"Plugin shortcut
