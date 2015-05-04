@@ -26,6 +26,8 @@ call plug#begin('~/.vim/plug')
  Plug 'sheerun/vim-polyglot'			"All in one ident/syntax
  Plug 'Shougo/unite.vim'			"Make Vim an IDE
  Plug 'Shougo/vimproc.vim'			"Needed for Unite (manual inst)
+ Plug 'javacomplete', {'for': 'java'}		"Complete java
+ Plug 'vivien/vim-addon-linux-coding-style', {'for': 'c'} "Kernel coding
 call plug#end()
 filetype plugin indent on			"End vim-plug call, use plugins
 
@@ -70,6 +72,7 @@ set ruler
 set shiftwidth=8		"It's like a standard
 set undolevels=127		"Remember this much undos
 set ttyscroll=3			"Scroll faster
+set ttyfast			"Faster refresh
 set incsearch			"Search as you type
 set hlsearch			"Higlight search
 "set digraph			"For deutsch
@@ -84,6 +87,9 @@ let &titleold=getcwd()		"Don't break my spawn_cwd dwm patch
 autocmd InsertLeave * set nopaste	"Turn off paste mode on leaving insret
 autocmd BufWritePost .vimrc so ~/.vimrc	"Auto reload vimrc
 autocmd BufRead /tmp/mutt-* set tw=72	"Mail file
+"Complete java
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
 
 "" Appereance 
 if (exists('+colorcolumn'))		"Highlight 80th column
@@ -91,10 +97,17 @@ if (exists('+colorcolumn'))		"Highlight 80th column
         highlight ColorColumn ctermbg=9
 endif
 
+set t_Co=256
 set background=dark
 colorscheme solarized
 
-
+" Speed up syntax highlighting
+ set nocursorcolumn
+ set nocursorline
+ syntax sync minlines=100
+ syntax sync maxlines=240
+ " Don't try to highlight lines longer than 800 characters
+ set synmaxcol=900
 
 "" Keymap
 nnoremap <F8> :TagbarToggle<CR>	"Plugin shortcut
@@ -104,8 +117,11 @@ nnoremap <C-J> <C-W><C-J>	"Easier split motion
 nnoremap <C-K> <C-W><C-K>	"|
 nnoremap <C-L> <C-W><C-L>	"|
 nnoremap <C-H> <C-W><C-H>	"|
-noremap t o<Esc>		"Insert empty line w/o going to insert mode
-noremap T O<Esc>		"|
+nnoremap j gj			"Better movement with soft line breaks
+nnoremap k gk			"|
+vnoremap j gj			"|
+vnoremap k gk			"|
+inoremap <S-TAB> <C-X><C-O>
 
 "" Functions
 "undofile - This allows you to use undos after exiting and restarting
