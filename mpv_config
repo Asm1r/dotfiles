@@ -1,25 +1,20 @@
-# Write your default config options here!
+# Video settings
+hwdec=no
+deband=yes
+profile=opengl-hq
+#scale=ewa_lanczossharp
+#opengl-shaders='~/.mpv/shaders/deband.glsl'
+#opengl-shaders='~/.mpv/shaders/nnedi3-nns32-win8x4-yuv.hook'
 
-# default output, vdpau seems buggy on nouveau
-# mimic mpchc
-vo=opengl-hq:swapinterval=1:lscale=ewa_lanczos3:cscale=ewa_lanczos2:dither-depth=8:temporal-dither:3dlut-size=128x256x64:scaler-resizes-only:fbo-format=rgba16:sigmoid-upscaling:sigmoid-slope=6.5:sigmoid-center=0.75
-vf=vdpaupp
-hwdec=vdpau
-geometry=50%:50%
-ytdl=yes
-
-# Audio
+# Audio settings
 ao=alsa
-audio-channels=downmix
-af=drc,scaletempo
-alang=jpn,jp,en,eng
-gapless-audio
-softvol-max=300
+alsa-resample=no
+audio-channels=stereo
+volume-max=300
+audio-pitch-correction=no
+audio-normalize-downmix=yes
 
-#Subtitles
-slang=en,eng
-demuxer-mkv-subtitle-preroll
-ass-force-style=Kerning=yes
+# Language settings
+alang=eng, en
+slang=eng, en
 
-# Cache
-cache=327680
