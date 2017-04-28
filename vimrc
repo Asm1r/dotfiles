@@ -28,6 +28,8 @@ call plug#begin('~/.vim/plug')
  Plug 'Shougo/vimproc.vim'			"Needed for Unite (manual inst)
  Plug 'javacomplete', {'for': 'java'}		"Complete java
  Plug 'vivien/vim-addon-linux-coding-style', {'for': 'c'} "Kernel coding
+ Plug 'ayu-theme/ayu-vim'			"colors
+ Plug 'Valloric/YouCompleteMe'			"cool completion
 call plug#end()
 filetype plugin indent on			"End vim-plug call, use plugins
 
@@ -64,6 +66,18 @@ filetype plugin indent on			"End vim-plug call, use plugins
  "vim-polygot
   let g:LatexBox_loaded_matchparen = 1	"Disable matchparen on latex
 
+ "YCM
+  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+  let g:ycm_show_diagnostics_ui = 0
+  let g:ycm_enable_diagnostic_signs = 0
+  let g:ycm_enable_diagnostic_highlighting = 0
+  let g:ycm_echo_current_diagnostic = 0
+  let g:ycm_log_level = 'critical'
+  let g:ycm_complete_in_comments_and_strings=1
+  let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+  let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+  let g:ycm_autoclose_preview_window_after_completion = 1
+
  
 "" Basic settings
 syntax on
@@ -80,6 +94,7 @@ set showcmd			"Show 'incomplete' commands
 set title			"Show what you edit on term titlebar
 set lazyredraw			"Don't update display while executing macros
 set wildmenu			"Better cmd line completion
+set belloff=all
 let g:loaded_matchparen=1 	"Don't show matching parentheses
 let g:netrw_liststyle=3		"Vim Explorer NTree style
 let &titleold=getcwd()		"Don't break my spawn_cwd dwm patch
@@ -97,9 +112,13 @@ if (exists('+colorcolumn'))		"Highlight 80th column
         highlight ColorColumn ctermbg=9
 endif
 
-set t_Co=256
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let ayucolor="dark"   " for dark version of theme
+"set t_Co=256
 set background=dark
-colorscheme solarized
+colorscheme ayu
 
 " Speed up syntax highlighting
  set nocursorcolumn
