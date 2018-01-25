@@ -15,6 +15,12 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 #{{{
 #fortune 
 print -Pn "\e]2;%~\a"
+
+#tmux
+if [[ "$TERM" == "xterm-256color" ]]; then
+    exec tmux
+fi
+
 #}}}
 #
 
@@ -38,7 +44,7 @@ alias -s pdf="dn zathura"
 alias -s doc="dn abiword"
 alias -s tar="tar -xvf"
 alias -s {ba,com,url,html,net,org,to}="dn $BROWSER"
-alias -s {conf,txt,rc,c,h}=$EDITOR
+alias -s {conf,txt,rc,}=$EDITOR
 alias -s {jpg,jpeg,png,tif,gif,svg}="dn $VIEWER"
 alias -s {mp3,mp4,avi,mkv,webm,ogg,ogv,rmvb,3gp,flv}="dn $PLAYER"
 #}}}
@@ -94,7 +100,7 @@ is42(){
 ### Misc options ###
 #{{{
 
-eval `dircolors /etc/dir_colors`
+eval `dircolors $HOME/.zsh/dircolors.ansi-dark`
 
 REPORTTIME=5 				# report about cpu-/system-/user-time of
     					# command  if running longer than 5 seconds
@@ -130,7 +136,8 @@ setopt share_history			# share history betwen sessions
 # called later (via is4 && grmlcomp)
 # note: use 'zstyle' for getting current settings
 #         press ^xh (control-x h) for getting tags in context; ^x? (control-x ?) to run complete_debug with trace output
-grmlcomp() {
+
+function grmlcomp () {
     # TODO: This could use some additional information
 
     # Make sure the completion system is initialised
@@ -233,7 +240,7 @@ grmlcomp() {
     zstyle ':completion:*' special-dirs ..
 
     # run rehash on completion so new installed program are found automatically:
-    _force_rehash() {
+    function _force_rehash () {
         (( CURRENT == 1 )) && rehash
         return 1
     }
@@ -262,19 +269,30 @@ grmlcomp() {
     # command for process lists, the local web server details and host completion
     zstyle ':completion:*:urls' local 'www' '/var/www/' 'public_html'
 
-    # caching
-    [[ -d $ZSHDIR/cache ]] && zstyle ':completion:*' use-cache yes && \
-                            zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
+    # Some functions, like _apt and _dpkg, are very slow. We can use a cache in
+    # order to speed things up
+        GRML_COMP_CACHE_DIR=${GRML_COMP_CACHE_DIR:-${ZDOTDIR:-$HOME}/.zsh/cache}
+        if [[ ! -d ${GRML_COMP_CACHE_DIR} ]]; then
+            command mkdir -p "${GRML_COMP_CACHE_DIR}"
+        fi
+
+	zstyle ':completion:*' accept-exact '*(N)'
+	zstyle ':completion:*' use-cache on
+	zstyle ':completion:*' cache-path ~/.zsh/cache
 
     # host completion
     if is42 ; then
+        [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
         [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+        [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
     else
+        _ssh_config_hosts=()
         _ssh_hosts=()
         _etc_hosts=()
     fi
     hosts=(
         $(hostname)
+        "$_ssh_config_hosts[@]"
         "$_ssh_hosts[@]"
         "$_etc_hosts[@]"
         localhost
@@ -286,7 +304,7 @@ grmlcomp() {
     # use generic completion system for programs not yet defined; (_gnu_generic works
     # with commands that provide a --help option with "standard" gnu-like output.)
     for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
-                   pal stow tail uname ; do
+                   pal stow uname ; do
         [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
     done; unset compcom
 
